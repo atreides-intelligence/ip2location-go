@@ -17,7 +17,6 @@ import (
 	"strconv"
 	"unsafe"
 
-	"go.uber.org/zap/buffer"
 	"lukechampine.com/uint128"
 )
 
@@ -387,11 +386,26 @@ func OpenDB(dbpath string) (*DB, error) {
 	return OpenDBWithReader(f)
 }
 
+type ByteDBReader struct {
+	*bytes.Reader
+}
+
+func (bdr *ByteDBReader) Close() error {
+	return nil
+}
+
 // OpenDBFromBytes use a byte slice to open the IP2Location BIN database file. It will read all the metadata required to
 // be able to extract the embedded geolocation data, and return the underlining DB object.
-func OpenDBFromBytes(file []byte) (*DB, error) {
-	f := buffer.Buffer(file)
-	return OpenDBWithReader(f)
+func OpenDBWithBytes(data []byte) (*DB, error) {
+	if data == nil {
+		return nil, errors.New("data cannot be nil")
+	}
+
+	byteReader := &ByteDBReader{
+		Reader: bytes.NewReader(data),
+	}
+
+	return OpenDBWithReader(byteReader)
 }
 
 // OpenDBWithReader takes a DBReader to the IP2Location BIN database file. It will read all the metadata required to
