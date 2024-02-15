@@ -19,10 +19,11 @@ The database will be updated in monthly basis for the greater accuracy. Free LIT
 
 The paid databases are available at https://www.ip2location.com under Premium subscription package.
 
-As an alternative, this package can also call the IP2Location Web Service. This requires an API key. If you don't have an existing API key, you can subscribe for one at the below:
-https://www.ip2location.com/web-service/ip2location
+## Table of contents
+ ```{eval-rst}
+ .. toctree::
 
-Developer Documentation
-=====================
-
-To learn more about installation, usage, and code examples, please visit the developer documentation at [https://ip2location-go.readthedocs.io/en/latest/](https://ip2location-go.readthedocs.io/en/latest/).
+   self
+   quickstart
+   code
+ ```
